@@ -34,6 +34,14 @@
 
 ---
 
+# Basic Thread API
+
+- spawn
+- move
+- join
+
+---
+
 
 # Amdahl's Law
 
@@ -50,9 +58,19 @@
 
 ---
 
+---
+
 class: .middle
 
 # Example
 
+
+---
+
+# Lifetimes on threads
+
+Why everything must be static if we can join threads?
+
+[Leakpocalypse](http://cglab.ca/~abeinges/blah/everyone-poops/)
 
 ---
