@@ -1,0 +1,7 @@
+[package]
+name = "concurrency-workshop"
+version = "0.1.0"
+authors = ["Ruben Paz <me@ruben.io>"]
+edition = "2018"
+
+[dependencies]
