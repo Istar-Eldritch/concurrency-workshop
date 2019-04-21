@@ -34,14 +34,37 @@
 
 ---
 
-# Basic Thread API
+class: center, middle
 
-- spawn
-- move
-- join
+# Rust Threads API
 
 ---
 
+# Creating a new Thread (spawn)
+
+```rs
+use std::thread;
+
+thread::spawn(move || {
+    // some work here
+});
+```
+
+---
+
+# Parent waiting for completion (join)
+
+```rs
+use std::thread;
+
+let child = thread::spawn(move || {
+    // some work here
+});
+// some work here
+let res = child.join();
+```
+
+---
 
 # Amdahl's Law
 
