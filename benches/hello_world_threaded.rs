@@ -17,7 +17,7 @@ pub fn hello_world_threaded() {
 
 fn criterion_benchmark(c: &mut Criterion) {
     env_logger::init();
-    c.bench_function("hello_world_threaded", |b| b.iter(|| hello_world_threaded()));
+    c.bench_function("hello_world_threaded", |b| b.iter(hello_world_threaded));
 }
 
 criterion_group!(benches, criterion_benchmark);
