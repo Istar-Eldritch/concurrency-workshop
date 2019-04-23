@@ -155,9 +155,9 @@ class: middle, center
 
 class: center, middle
 
-## 🔎 History: Green Threads -> Async I/O & Futures
+## 🔎 History: The RFC that removes Green Threads
 
-[https://aturon.github.io/blog/2016/08/11/futures/](https://aturon.github.io/blog/2016/08/11/futures/)
+[https://github.com/aturon/rfcs/blob/remove-runtime/active/0000-remove-runtime.md](https://github.com/aturon/rfcs/blob/remove-runtime/active/0000-remove-runtime.md)
 
 ---
 
