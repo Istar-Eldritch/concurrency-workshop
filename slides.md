@@ -193,7 +193,7 @@ Why everything must be static if we can join threads?
 
 ---
 
-## ⚠️ Send & Sync
+### ⚠️ Send & Sync
 
 - raw pointers are neither Send nor Sync (because they have no safety guards).
 - UnsafeCell isn't Sync (and therefore Cell and RefCell aren't).
@@ -213,6 +213,34 @@ unsafe impl Sync for MyBox {}
 
 [Rust book reference](https://doc.rust-lang.org/nomicon/send-and-sync.html)
 
+---
+
+<!-- TODO: Exercise on Move -->
+
+## 🦀 Threads API :: Channels
+
+```rs
+use std::sync::mpsc::channel;
+use std::thread;
+
+let (sender, receiver) = channel();
+
+// Spawn off an expensive computation
+thread::spawn(move|| {
+    sender.send(expensive_computation()).unwrap();
+});
+
+// Do some useful work for awhile
+
+// Let's see what that answer was
+println!("{:?}", receiver.recv().unwrap());
+```
+
+- Async channels do not have a buffer size.
+- It is possible to clone the sender. You can only have one receiver per channel.
+- Both the sender and receiver implement Send. But either implements Sync.
+
+<!-- TODO: Exercises on channels -->
 ---
 
 class: center, middle
@@ -271,6 +299,7 @@ fn main() {
 - Mutex `lock` returns a Result indicating if the mutex has been poisoned. A pattern here is to simply unwrap, propagating panics.
 - The `PoisonError` has an `into_inner` which returns the data anyway. Handle with care.
 
+<!-- TODO: Exercise on poisoning -->
 ---
 
 class: center, middle
@@ -280,3 +309,5 @@ class: center, middle
 **examples/03_mutex.rs**
 
 **examples/04_arc_mut.rs**
+
+<!-- TODO: Local thread storage. How does it work, how do we use it? -->
