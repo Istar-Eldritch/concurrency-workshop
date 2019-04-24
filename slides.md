@@ -207,6 +207,7 @@ Why everything must be static if we can join threads?
 - raw pointers are neither Send nor Sync (because they have no safety guards).
 - UnsafeCell isn't Sync (and therefore Cell and RefCell aren't).
 - Rc isn't Send or Sync (because the refcount is shared and unsynchronized).
+- Wrapping the value in a `Mutex` makes it `Sync`, but it must already implement `Send`.
 
 --
 
@@ -217,10 +218,6 @@ struct MyBox(*mut u8);
 unsafe impl Send for MyBox {}
 unsafe impl Sync for MyBox {}
 ```
-
---
-
-[Rust book reference](https://doc.rust-lang.org/nomicon/send-and-sync.html)
 
 ---
 
@@ -300,10 +297,6 @@ class: center, middle
 
 ---
 
-
-
----
-
 ### ⚠️ Mutex poisoning
 
 - Mutex `lock` returns a Result indicating if the mutex has been poisoned. A pattern here is to simply unwrap, propagating panics.
@@ -333,11 +326,19 @@ println!("{:?}", receiver.recv().unwrap());
 ```
 
 - Async channels have a dynamic buffer size.
-- It is possible to clone the sender. You can only have one receiver per channel.
 - Both the sender and receiver implement Send. But either implements Sync.
+- It is possible to clone the sender. You can only have one receiver per channel.
 
 ---
 
 # Channels
 
 **examples/08_receiver_channel.rs**
+**examples/09_thread_pool.rs**
+
+---
+
+## Threadpool
+
+- No need to spawn new treads. Reduce runtime cost by pre-spawning the threads.
+- Keeps memory on check.

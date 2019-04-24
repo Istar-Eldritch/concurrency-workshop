@@ -1,4 +1,6 @@
-// We are mapping over a vector, multiplying each of its values by two. Can you do it in parallel?
+// We are mapping over a vector, multiplying each of its values by two.
+// Can you do it in parallel?
+// TIP: You can share the array with 2 - 4 threads and map portions of it in each thread.
 
 fn main() {
     // Initialization of vector

@@ -1,7 +1,9 @@
 use std::net::Ipv4Addr;
 use std::thread;
+use rand;
+use std::io::Write;
 
-use crate::utils::{to_i32, to_ipv4};
+use crate::utils::{to_i32, to_ipv4,};
 
 pub fn scan_network(from: Ipv4Addr, to: Ipv4Addr) {
     let from = to_i32(from);
@@ -12,20 +14,25 @@ pub fn scan_network(from: Ipv4Addr, to: Ipv4Addr) {
     }
 }
 
-
 pub fn scan_machine(addr: Ipv4Addr) {
     if is_online(addr) {
-        for port in 0..=65535 {
+        // 65535 total ports, we only scanning the well known system ports. 
+        for port in 0..=1000 {
             scan_port(addr, port);
         }
+        print!("-");
+    } else {
+        print!(".")
     }
+    std::io::stdout().flush().unwrap();
 }
 
 fn is_online(_addr: Ipv4Addr) ->  bool {
-    thread::sleep(std::time::Duration::from_millis(10));
-    false
+    thread::sleep(std::time::Duration::from_millis(1));
+    let f: f64 = rand::random();
+    (f * 100_f64) > 95_f64 // Only 5% return true
 }
 
 fn scan_port(_addr: Ipv4Addr, _port: u32) {
-    thread::sleep(std::time::Duration::from_millis(10));
+    thread::sleep(std::time::Duration::from_millis(1));
 }
