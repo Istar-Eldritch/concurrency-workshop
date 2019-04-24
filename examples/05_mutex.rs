@@ -1,7 +1,7 @@
 use std::thread;
 
 // We want to increase the counter up to 10
-// This program prints 0. Why?
+// There is a bug in this program, the counter remains 0 always. Why?
 // Do the required modifications to make it work as intented.
 fn main() {
     let mut counter = 0;

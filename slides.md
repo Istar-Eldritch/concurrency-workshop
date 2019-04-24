@@ -153,6 +153,15 @@ class: middle, center
 
 ---
 
+class: middle, center
+
+# The cost of spawning a thread/
+
+**benches/01_hello_world.rs**
+**examples/02_thread_mem.rs**
+
+---
+
 class: center, middle
 
 ## 🔎 History: The RFC that removes Green Threads
@@ -215,32 +224,10 @@ unsafe impl Sync for MyBox {}
 
 ---
 
-<!-- TODO: Exercise on Move -->
+# Move
 
-## 🦀 Threads API :: Channels
+**examples/04_thread_lifetimes.rs**
 
-```rs
-use std::sync::mpsc::channel;
-use std::thread;
-
-let (sender, receiver) = channel();
-
-// Spawn off an expensive computation
-thread::spawn(move|| {
-    sender.send(expensive_computation()).unwrap();
-});
-
-// Do some useful work for awhile
-
-// Let's see what that answer was
-println!("{:?}", receiver.recv().unwrap());
-```
-
-- Async channels do not have a buffer size.
-- It is possible to clone the sender. You can only have one receiver per channel.
-- Both the sender and receiver implement Send. But either implements Sync.
-
-<!-- TODO: Exercises on channels -->
 ---
 
 class: center, middle
@@ -272,7 +259,7 @@ class: center, middle
 
 # Sharing state across threads
 
-**examples/02_arc.rs**
+**examples/04_arc.rs**
 
 ---
 
@@ -306,8 +293,35 @@ class: center, middle
 
 # Sharing state across threads
 
-**examples/03_mutex.rs**
+**examples/05_mutex.rs**
 
-**examples/04_arc_mut.rs**
+**examples/06_arc_mut.rs**
 
 <!-- TODO: Local thread storage. How does it work, how do we use it? -->
+
+---
+
+## 🦀 Threads API :: Channels
+
+```rs
+use std::sync::mpsc::channel;
+use std::thread;
+
+let (sender, receiver) = channel();
+
+// Spawn off an expensive computation
+thread::spawn(move|| {
+    sender.send(expensive_computation()).unwrap();
+});
+
+// Do some useful work for awhile
+
+// Let's see what that answer was
+println!("{:?}", receiver.recv().unwrap());
+```
+
+- Async channels have a dynamic buffer size.
+- It is possible to clone the sender. You can only have one receiver per channel.
+- Both the sender and receiver implement Send. But either implements Sync.
+
+<!-- TODO: Exercises on channels -->

@@ -13,9 +13,5 @@ pnet = "0.22.0"
 criterion = "0.2"
 
 [[bench]]
-name = "hello_world"
-harness = false
-
-[[bench]]
-name = "hello_world_threaded"
+name = "01_hello_world"
 harness = false
