@@ -157,7 +157,7 @@ class: middle, center
 
 # The cost of spawning a thread/
 
-**benches/01_hello_world.rs**
+**benches/01_hello_world.rs**  
 **examples/02_thread_mem.rs**
 
 ---
@@ -224,7 +224,9 @@ unsafe impl Sync for MyBox {}
 
 ---
 
-# Move
+class: middle, center
+
+# Move state lifetimes & threads
 
 **examples/04_thread_lifetimes.rs**
 
@@ -279,14 +281,9 @@ fn main() {
     println!("m = {:?}", m);
 }
 ```
---
 
-### ⚠️ Mutex poisoning
+- If you need to recover the value after finishing with the mutex you can do `to_inner`on it.
 
-- Mutex `lock` returns a Result indicating if the mutex has been poisoned. A pattern here is to simply unwrap, propagating panics.
-- The `PoisonError` has an `into_inner` which returns the data anyway. Handle with care.
-
-<!-- TODO: Exercise on poisoning -->
 ---
 
 class: center, middle
@@ -297,7 +294,18 @@ class: center, middle
 
 **examples/06_arc_mut.rs**
 
+**examples/07_parallel_map.rs**
+
 <!-- TODO: Local thread storage. How does it work, how do we use it? -->
+
+---
+
+### ⚠️ Mutex poisoning
+
+- Mutex `lock` returns a Result indicating if the mutex has been poisoned. A pattern here is to simply unwrap, propagating panics.
+- The `PoisonError` has an `into_inner` which returns the data anyway. Handle with care.
+
+<!-- TODO: Exercises on Mutex poisoning -->
 
 ---
 
