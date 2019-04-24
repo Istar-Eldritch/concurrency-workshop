@@ -300,6 +300,10 @@ class: center, middle
 
 ---
 
+
+
+---
+
 ### ⚠️ Mutex poisoning
 
 - Mutex `lock` returns a Result indicating if the mutex has been poisoned. A pattern here is to simply unwrap, propagating panics.
@@ -332,4 +336,8 @@ println!("{:?}", receiver.recv().unwrap());
 - It is possible to clone the sender. You can only have one receiver per channel.
 - Both the sender and receiver implement Send. But either implements Sync.
 
-<!-- TODO: Exercises on channels -->
+---
+
+# Channels
+
+**examples/08_receiver_channel.rs**
