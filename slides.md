@@ -25,7 +25,7 @@
 
 ## 📔 Parallelism vs Concurrency
 
-![Parallelism vs Concurrency](./diagrams/concurrency_vs_parallelism.svg)
+.center[.middle[![Parallelism vs Concurrency](./diagrams/concurrency_vs_parallelism.svg)]]
 
 ---
 
@@ -350,21 +350,50 @@ println!("{:?}", receiver.recv().unwrap());
 
 ---
 
-## 📝 Threadpool
+## 🏗 Data pipelines
+
+![Sharing State](./diagrams/data_pipelines.svg)
+
+---
+
+class: center, middle
+
+# 📝 Threadpool
 
 **examples/08_thread_pool.rs**
 
 ---
 
-## 🔎 Interesting libraries
+class: center, middle
 
-- [Rayon](https://github.com/rayon-rs/rayon)
-- [Fibers](https://github.com/dwango/fibers-rs)
+# 📝 Putting everything toguether
 
+**src/scanner.rs**
+
+---
+
+## 🔎 Summary
+
+- Amortization costs of threads: Amdahl' law.
+- Creation of threads.
+- Thread models.
+- Moving state to threads.
+- Synchronising thread state.
+- Rust channels.
+- Parallel programming patterns.
+- Transform a sequencial program in a concurrent one.
+
+---
 
 ## 🔎 Not covered content
 
 - [Thread local storage](https://doc.rust-lang.org/std/macro.thread_local.html)
 - [Atomics](https://doc.rust-lang.org/std/sync/atomic/index.html)
 - [Async](https://rust-lang.github.io/async-book/)
+- Actor model with channels
 - Performance tools.
+
+## 🔎 Interesting libraries
+
+- [Rayon](https://github.com/rayon-rs/rayon)
+- [Fibers](https://github.com/dwango/fibers-rs)
