@@ -19,6 +19,8 @@
   <!-- - Actors -->
 - 🔎 Others
 
+- 📝 Exercises
+
 ---
 
 ## 📔 Parallelism vs Concurrency
@@ -87,7 +89,7 @@ handler.join().unwrap();
 ---
 class: center, middle
 
-# First thread in Rust
+# 📝 First thread in Rust
 
 **examples/01_create_thread.rs**
 
@@ -155,7 +157,7 @@ class: middle, center
 
 class: middle, center
 
-# The cost of spawning a thread/
+# 📝 The cost of spawning a thread/
 
 **benches/01_hello_world.rs**  
 **examples/02_thread_mem.rs**
@@ -223,7 +225,7 @@ unsafe impl Sync for MyBox {}
 
 class: middle, center
 
-# Move state lifetimes & threads
+# 📝 Move state lifetimes & threads
 
 **examples/04_thread_lifetimes.rs**
 
@@ -256,7 +258,7 @@ let b = Arc::clone(&foo);
 
 class: center, middle
 
-# Sharing state across threads
+## 📝 Sharing state across threads
 
 **examples/04_arc.rs**
 
@@ -280,6 +282,15 @@ fn main() {
 ```
 
 - If you need to recover the value after finishing with the mutex you can do `to_inner`on it.
+- Mutexes are Sync and its the best (most secure) way to make a value sync if needed.
+
+---
+
+### ⚠️ Mutex poisoning
+
+- Mutex `lock` returns a Result indicating if the mutex has been poisoned. A pattern here is to simply unwrap, propagating panics.
+- The `PoisonError` has an `into_inner` which returns the data anyway. Handle with care.
+<!-- TODO: Exercises on Mutex poisoning -->
 
 ---
 
@@ -291,18 +302,20 @@ class: center, middle
 
 **examples/06_arc_mut.rs**
 
-**examples/07_parallel_map.rs**
-
 <!-- TODO: Local thread storage. How does it work, how do we use it? -->
+---
+
+## 🏗 Data parallelisation
+
+![Sharing State](./diagrams/sharing_state.svg)
 
 ---
 
-### ⚠️ Mutex poisoning
+class: center, middle
 
-- Mutex `lock` returns a Result indicating if the mutex has been poisoned. A pattern here is to simply unwrap, propagating panics.
-- The `PoisonError` has an `into_inner` which returns the data anyway. Handle with care.
+## Data parallelisation
 
-<!-- TODO: Exercises on Mutex poisoning -->
+**examples/07_parallel_map.rs**
 
 ---
 
@@ -331,14 +344,27 @@ println!("{:?}", receiver.recv().unwrap());
 
 ---
 
-# Channels
+## 🏗 Threadpools
 
-**examples/08_receiver_channel.rs**
-**examples/09_thread_pool.rs**
+![Thread Pool](./diagrams/thread_pool_scaled.png)
 
 ---
 
-## Threadpool
+## 📝 Threadpool
 
-- No need to spawn new treads. Reduce runtime cost by pre-spawning the threads.
-- Keeps memory on check.
+**examples/08_thread_pool.rs**
+
+---
+
+## 🔎 Interesting libraries
+
+- [Rayon](https://github.com/rayon-rs/rayon)
+- [Fibers](https://github.com/dwango/fibers-rs)
+
+
+## 🔎 Not covered content
+
+- [Thread local storage](https://doc.rust-lang.org/std/macro.thread_local.html)
+- [Atomics](https://doc.rust-lang.org/std/sync/atomic/index.html)
+- [Async](https://rust-lang.github.io/async-book/)
+- Performance tools.
