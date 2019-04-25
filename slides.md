@@ -1,25 +1,22 @@
+class: center, middle
 
-# Agenda
+# Rust Concurrency Workshop
 
-- 📔 Theory
-  <!-- - What is a thread. -->
-  <!-- - Thread models -->
-- 🦀 Threads API
-  <!-- - Creation -->
-  <!-- - Move data to threads -->
-    <!-- - Lifetimes -->
-    <!-- - Move -->
-    <!-- - Channels -->
-  <!-- - Synchronization -->
-- ⚠️ Pitfalls
-    <!-- - What Rust avoids -->
-    <!-- - What we need to be careful about -->
-- 🏗 Patterns
-  <!-- - Thread Pool -->
-  <!-- - Actors -->
-- 🔎 Others
+---
 
-- 📝 Exercises
+## What are we going to cover?
+
+📔 Theory
+
+🦀 Threads API
+
+📝 Exercises
+
+⚠️ Pitfalls
+
+🏗 Patterns
+
+🔎 Other trivia
 
 ---
 
@@ -31,13 +28,12 @@
 
 # 📔 Amdahl's Law
 
-.middle[## $$S = { 1 \over { s + p \over N }}$$]
+.middle[## $$S = { 1 \over { α + (1 - α) \over n }}$$]
 
 .left[
 S: Time improvement  
-s: Secuential bit of the program  
-p: Parallel part of the program  
-N: Number of processors 
+α: Proportion of the program that runs sequentially  
+n: Number of processors 
 ]
 
 ---
@@ -172,7 +168,6 @@ class: center, middle
 
 ---
 
-
 class: center, middle
 
 # Moving state around threads
@@ -283,6 +278,7 @@ fn main() {
 
 - If you need to recover the value after finishing with the mutex you can do `to_inner`on it.
 - Mutexes are Sync and its the best (most secure) way to make a value sync if needed.
+- If you are using a lot of threads that do read only operations consider using `RwLock`.
 
 ---
 
@@ -303,6 +299,17 @@ class: center, middle
 **examples/06_arc_mut.rs**
 
 <!-- TODO: Local thread storage. How does it work, how do we use it? -->
+---
+
+### ⚠️ The dangers of concurrency
+
+**What does Rust help with?**
+- Data races
+- Cross-thread dangling pointers
+
+**You still need to pay atention to**
+- Race conditions
+- Dead lock conditions
 ---
 
 ## 🏗 Data parallelisation
@@ -387,7 +394,7 @@ class: center, middle
 
 ## 🔎 Not covered content
 
-- [Thread local storage](https://doc.rust-lang.org/std/macro.thread_local.html)
+- [Local Key](https://doc.rust-lang.org/std/macro.thread_local.html)
 - [Atomics](https://doc.rust-lang.org/std/sync/atomic/index.html)
 - [Async](https://rust-lang.github.io/async-book/)
 - Actor model with channels
