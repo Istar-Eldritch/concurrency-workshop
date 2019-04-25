@@ -7,16 +7,18 @@ struct Test {
     n: u32,
 }
 
-fn print(obj: &Test) {
+fn print(obj: Test) -> Test {
     let t = thread::spawn(move || {
-        dbg!(obj);
+        dbg!(&obj);
+
+        obj
     });
 
-    t.join().unwrap();
+    t.join().unwrap()
 }
 
 fn main() {
     let obj = Test { n : 3};
-    print(&obj);
+    let obj = print(obj);
     dbg!(obj);
 }
