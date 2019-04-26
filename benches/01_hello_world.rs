@@ -4,10 +4,10 @@ extern crate criterion;
 use criterion::Criterion;
 
 pub fn hello_world() {
-    // let t = std::thread::spawn(move || {
+    let t = std::thread::spawn(move || {
         println!("Hello World");    
-    // });
-    // t.join();
+    });
+    t.join();
 }
 
 fn criterion_benchmark(c: &mut Criterion) {
